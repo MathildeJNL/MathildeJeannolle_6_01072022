@@ -15,3 +15,5 @@
 
 <h2>Pour un mode navigation :</h2>
 <p>Dans votre console : <b>npm install</b> puis <b>npm run start</b>. Le serveur doit fonctionner sur localhost avec le port 3000 par défaut. </p>
+<br>
+<h3><b>ATTENTION ! Vous devez connnecter votre base de données, à la place de 'URI' dans le fichier app.js</h3>
