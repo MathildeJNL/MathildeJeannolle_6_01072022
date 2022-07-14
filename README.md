@@ -5,15 +5,17 @@
 
 <h2>Lancement du projet :</h2>
 <ol>
-<li>Cloner ce repo</li>
+<li>Clonez ce repo</li>
 <br>
 <li><h3>Prérequis</h3>
 Il est impératif d'avoir Node et npm installés.
 </li>
 <br>
 <li><h3>Installation du Front-End</h3>
-Depuis le dossier "frontend" du projet, lancer le serveur avec la commande <b>"npm start"</b></li>
+Depuis le dossier "frontend" du projet, lancez le serveur avec la commande <b>"npm start"</b></li>
 <br>
 <li><h3>Installation du Back-End</h3>
-Depuis le dossier "backend" du projet, exécuter <b>"npm install"</b> puis <b>"npm run start"</b>.</li>
+Depuis le dossier "backend" du projet, exécutez <b>"npm install"</b> puis <b>"npm run start"</b>.</li>
 </ol>
+<br>
+<h3><b>ATTENTION ! Vous devez connnecter votre base de données, à la place de 'URI' dans le fichier app.js</h3>
