@@ -66,6 +66,7 @@ exports.deleteSauce = (req, res, next) => {
                 res.status(403).json({ message: 'Non-autorisé' });
                 //si user ok, on recupère d'abord le nom du fichier
             } else {
+                //on récupère le nom du fichier
                 const filename = sauce.imageUrl.split('/images/')[1];
                 //puis suppression img et id du système
                 //unlink() permet de supprimer un fichier du syst. de fichier
@@ -105,10 +106,12 @@ exports.likeSauce = (req, res, next) => {
         .then(sauce => {
             //on récupère les valeurs de like et dislike
             const values = {
+                //initialise (tableau) users qui like/dislike sauce
                 usersLiked: sauce.usersLiked,
                 usersDisliked: sauce.usersDisliked,
-                likes: 0,
-                dislikes: 0,
+                //on compte le nombre de likes et dislikes grâce au nombre de user qu'on peut compter dans le tableau
+                likes: sauce.usersLiked.length,
+                dislikes: sauce.usersDisliked.length,
             };
             //Plusieurs scénarios possibles avec utilisation de la condition switch
             switch (like) {
@@ -125,17 +128,19 @@ exports.likeSauce = (req, res, next) => {
                         const index = values.usersLiked.indexOf(userId);
                         //splice : suppression d'un indice spécifique du tableau
                         values.usersLiked.splice(index, 1);
+                        
                     //si le user annule son dislike
                     } else {
                         const index = values.usersDisliked.indexOf(userId);
                         values.usersDisliked.splice(index, 1);
                     }
                     break;
+                //case default :
+                //error
             }
-            //on compte le nombre de likes et dislikes grâce au nombre de user qu'on peut compter dans le tableau
-            values.likes = values.usersLiked.length;
-            values.dislikes = values.usersDisliked.length;
+
             //on affiche la sauce avec les nouvelles valeurs
+            //
             Sauce.updateOne({ _id: sauceId }, values)
                 .then(() => res.status(200).json({ message: "Votre vote a bien été pris en compte!" }))
                 .catch(error => res.status(400).json({ error }));

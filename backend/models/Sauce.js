@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//ci-dessous le modèle du schéma de chaque info pour la sauce
 const sauceSchema = mongoose.Schema({
     name: {type: String, required: true},
     manufacturer: {type: String, required: true},

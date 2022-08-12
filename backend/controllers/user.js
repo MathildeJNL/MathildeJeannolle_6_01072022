@@ -1,15 +1,19 @@
+//crypte les informations
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken'); //permet de créer les tokens et de les vérifier
+//permet de créer les tokens et de les vérifier
+const jwt = require('jsonwebtoken');
 
+//import du modèle (models) utilisateur
 const User = require('../models/User');
 
 //enregistrement de nvx users
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10) //crypter le mdp
+    //crypte le mdp 10 fois
+    bcrypt.hash(req.body.password, 10)
     .then(hash => {
         const user = new User ({
             email: req.body.email, //crée new user avec mdp crypté et adresse mail passé dans le corps de la req
-            password: hash
+            password: hash //hashage du mdp à la création
         });
         user.save() //enregistre user dans la BDD
         .then(() => res.status(201).json({message: 'Utilisateur crée'}))
@@ -20,17 +24,20 @@ exports.signup = (req, res, next) => {
 
 //fonction login pour connecter user existant
 exports.login = (req, res, next) => {
+    //vérification de l'email si déjà existant
     User.findOne({
         email: req.body.email
     })
     .then(user => {
+        //si l'utilisateur est inexistant, on affiche une erreur
         if (user === null) {
+            //pour toute confidentialité, on indique un message qui ne donne pas de grosse précision sur l'objet de l'erreur
             res.status(401).json({message: 'Identifiant ou mot de passe incorrect'});
         } else {
-            bcrypt.compare(req.body.password, user.password)
+            bcrypt.compare(req.body.password, user.password) //on compare les entrées et les données
             .then(valid => {
                 if (!valid){
-                    res.status(401).json({message: 'Identifiant ou mot de passe incorrect'})
+                    res.status(401).json({message: 'Identifiant ou mot de passe incorrect'});
                 } else {
                     res.status(200).json({
                         userId: user._id,

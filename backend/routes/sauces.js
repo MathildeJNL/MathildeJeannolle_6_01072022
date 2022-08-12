@@ -24,7 +24,8 @@ router.delete('/:id', auth, saucesCtrl.deleteSauce);
 router.get('/:id', auth, saucesCtrl.getOneSauce);
 
 //récup' toutes les sauces
-router.get('/', auth, saucesCtrl.getAllSauces);
+// router.get('/', auth, saucesCtrl.getAllSauces);
+router.get('/',auth, saucesCtrl.getAllSauces);
 
 //like ou dislike une sauce
 router.post('/:id/like', auth, saucesCtrl.likeSauce);

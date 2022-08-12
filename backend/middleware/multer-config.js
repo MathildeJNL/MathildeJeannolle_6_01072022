@@ -20,4 +20,5 @@ const storage = multer.diskStorage({ //configure le chemin et le nom de fichier 
     }
 });
 
-module.exports = multer({storage}).single('image'); //Exportation de l'élément multer entièrement configuré
+//Exportation de l'élément multer entièrement configuré
+module.exports = multer({storage}).single('image');
